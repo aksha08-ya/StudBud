@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Study Planner</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: white;
+            text-align: center;
+        }
+        header {
+            background-color: #1d304c;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        nav {
+            margin-top: 10px;
+        }
+        nav a {
+            color: #58a6ff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+        }
+        .dashboard {
+            margin-top: 40px;
+            padding: 20px;
+        }
+        .progress-bar {
+            background-color: #238636;
+            height: 20px;
+            width: 0%;
+            transition: width 1s ease-in-out;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .progress {
+            width: 50%;
+            margin: auto;
+            background-color: #21262d;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .upcoming-sessions {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #21262d;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            font-size: 1.2em;
+            padding: 10px;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 10px;
+            background-color: #18263b;
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Welcome to Your Dashboard
+        <nav>
+            <a href="html.html"></a>
+            <a href="login.html"></a>
+            <a href="chatbot.html"></a>
+        </nav>
+    </header>
+
+    <section class="dashboard">
+        <h2>Your Study Progress</h2>
+        <div class="progress" id="progress-container">
+        </div>
+        
+        <h3>Upcoming Sessions</h3>
+        <div class="upcoming-sessions">
+            <ul>
+                <li>Math - Monday 10:00 AM</li>
+                <li>Science - Tuesday 11:00 AM</li>
+                <li>History - Wednesday 12:00 PM</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AI Study Planner. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const subjects = [
+                { name: "Math", progress: 75 },
+                { name: "Science", progress: 60 },
+                { name: "History", progress: 85 }
+            ];
+            
+            const progressContainer = document.getElementById("progress-container");
+            
+            subjects.forEach(subject => {
+                const progressWrap = document.createElement("div");
+                progressWrap.innerHTML = <p>${subject.name}: <span>${subject.progress}%</span></p>;
+                
+                const progressBar = document.createElement("div");
+                progressBar.classList.add("progress-bar");
+                progressWrap.appendChild(progressBar);
+                progressContainer.appendChild(progressWrap);
+                
+                setTimeout(() => {
+                    progressBar.style.width = subject.progress + "%";
+                }, 300);
+            });
+
+            const sessionList = document.querySelectorAll("ul li");
+            sessionList.forEach(session => {
+                session.classList.add("fade-in");
+            });
+        });
+    </script>
+</body>
+</html>

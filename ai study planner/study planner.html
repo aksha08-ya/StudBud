@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Plan Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f1a;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #bbb;
+        }
+        .input-box {
+            margin-top: 20px;
+            width: 50%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #6c63ff;
+            background-color: #12122b;
+            color: white;
+            font-size: 1em;
+            outline: none;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #6c63ff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background-color: #5548c8;
+        }
+        .study-plan {
+            margin-top: 20px;
+            padding: 20px;
+            width: 60%;
+            background-color: #1e1e2e;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Free AI Study Plan Creator</div>
+        <div class="subtitle">Enter your learning goals to generate personalized study schedules with effective time management techniques.</div>
+        <input type="text" class="input-box" id="subjectInput" placeholder="Enter your study goals...">
+        <button class="button" onclick="generateStudyPlan()">Generate Study Plan ✨</button>
+        <div class="study-plan" id="studyPlan"></div>
+    </div>
+
+    <script>
+        function generateStudyPlan() {
+            const subjectInput = document.getElementById("subjectInput").value.trim().toLowerCase();
+            const studyPlanDiv = document.getElementById("studyPlan");
+
+            if (subjectInput === "") {
+                alert("Please enter a subject!");
+                return;
+            }
+
+            const studyPlans = {
+                math: "1. Review Algebra basics\n2. Solve 10 practice problems\n3. Study Geometry formulas\n4. Revise Trigonometry concepts\n5. Take a mock test",
+                science: "1. Read Physics fundamentals\n2. Watch a Chemistry tutorial\n3. Revise Biology diagrams\n4. Solve past year questions\n5. Do a quick recap",
+                history: "1. Study ancient civilizations\n2. Revise world wars\n3. Make history timelines\n4. Read about famous leaders\n5. Take a quiz",
+                programming: "1. Learn syntax basics\n2. Write small programs\n3. Debug code challenges\n4. Explore data structures\n5. Build a mini project"
+            };
+
+            const studyPlan = studyPlans[subjectInput] || 
+                "1. Research the topic\n2. Take notes\n3. Solve practice problems\n4. Review key concepts\n5. Take a test";
+
+            studyPlanDiv.innerHTML = `<h3>Study Plan for ${subjectInput.charAt(0).toUpperCase() + subjectInput.slice(1)}</h3>
+                                      <pre>${studyPlan}</pre>`;
+
+            studyPlanDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>

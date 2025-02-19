@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signup-container">
+        <a href=""
+        <h1>Create Your Account</h1>
+        <form id="signup-form" action="#" method="POST" class="signup-form" onsubmit="return validateForm()">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Log in here</a></p>
+    </div>
+    <a href="login.html">
+        <button style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+                       height: 60px; width: 200px; font-size: 20px; border: none; border-radius: 30px;">
+            Go Back
+        </button>
+    </a>
+    
+    <!-- JavaScript code -->
+    <script>
+        // Function to validate the form before submission
+        function validateForm() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            // Check if any field is empty
+            if (username === "" || email === "" || password === "" || confirmPassword === "") {
+                alert("All fields must be filled out.");
+                return false; // Prevent form submission
+            }
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false; // Prevent form submission
+            }
+
+            // Check password length
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false; // Prevent form submission
+            }
+
+            // Form is valid, can be submitted
+            return true;
+        }
+    </script>
+</body>
+</html>

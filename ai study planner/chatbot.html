@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - StudBud</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>StudBud - Chatbot</h1>
+        <nav>
+            <a href="html.html"></a>
+            <a href="login.html"></a>
+            <a href="dashboard.html"></a>
+            <a href="https://chatgpt.com/" target="_self">Go GPT</a>
+        </nav>
+    </header>
+
+    <section class="chatbot">
+        <div id="chatbox">
+            <div class="message bot-message">Hello! How can I help you with your study plan today?</div>
+        </div>
+        <input type="text" id="user-input" placeholder="Ask me anything..." />
+        <button onclick="sendMessage()">Send</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 StudBud. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const API_KEY = "AIzaSyBqXz47icur0jKi5n5NT0ZUXwuDX-1rY5Q"; // Replace with your actual API key
+
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value.trim();
+            if (!userInput) return;
+
+            appendMessage("user-message", userInput);
+            document.getElementById("user-input").value = "";
+
+            try {
+                const response = await fetch(
+                   `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userInput }] }]
+                        })
+                    }
+                );
+
+                const data = await response.json();
+                console.log("API Response:", data);
+                if (!response.ok) {
+                    throw new Error(`HTTP Error ${response.status}: ${data.error?.message}`);
+                }
+
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't process that.";
+                appendMessage("bot-message", reply);
+            } catch (error) {
+                appendMessage("bot-message", "Error connecting to AI. Please check console.");
+                console.error("API Error:", error);
+            }
+        }
+
+        function appendMessage(className, text) {
+            const chatbox = document.getElementById("chatbox");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", className);
+            messageDiv.textContent = text;
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+        
+        document.getElementById("user-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
